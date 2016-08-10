@@ -1,29 +1,26 @@
 $(document).ready(function() {
+  $.ajax({
+    url: 'http://api.icndb.com/jokes/random'
+  }).done(function(results) {
+    console.log(results);
+    $('.current_joke').text(results.value.joke);
+  })
+
 
   $('#submit').on('submit', function(d) {
     d.preventDefault();
-      console.log('Documentation button was clicked')
+
+
+    var currentJoke = $('.current_joke').text();
+    //console.log(currentJoke)
+    $('ul').append("<li>"+currentJoke+"</li>")
+
 
     $.ajax({
       url: 'http://api.icndb.com/jokes/random'
     }).done(function(results) {
       console.log(results);
-    $('.current_joke').text(results.value.joke);
+      $('.current_joke').text(results.value.joke);
     })
-    .fail(function() {
-      alert( "error" );
-    });
-    return false;
   })
-});
-
-
-$.ajax({
-  url: 'http://api.icndb.com/jokes/random'
-}).done(function(results) {
-  console.log(results);
-$('.current_joke').text(results.value.joke);
-})
-.fail(function() {
-  alert( "error" );
 });
